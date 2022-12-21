@@ -1,0 +1,33 @@
+/* Create table with some simple information about a few people */
+
+CREATE TABLE actors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT,
+    age INTEGER);
+    
+INSERT INTO actors (fullname, age) VALUES ('Tom Holland', 26);
+INSERT INTO actors (fullname, age) VALUES ('Tom Hanks', 60);
+INSERT INTO actors (fullname, age) VALUES ('Zendaya', 25);
+INSERT INTO actors (fullname, age) VALUES ('THOR', 36);
+INSERT INTO actors (fullname, age) VALUES ('Thors brother', 34);
+
+
+/* Create table with information about how those people are related */
+
+CREATE TABLE actor_relationships (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    actors_id INTEGER,
+    related_id INTEGER,
+    relationship TEXT);
+    
+INSERT INTO actor_relationships (actors_id, related_id, relationship) VALUES (1,3,'girl friend');
+INSERT INTO actor_relationships (actors_id, related_id, relationship) VALUES (3,1,'boy friend');
+INSERT INTO actor_relationships (actors_id, related_id, relationship) VALUES (4,5,'younger brother');
+INSERT INTO actor_relationships (actors_id, related_id, relationship) VALUES (5,4,'older brother');
+
+/*Which actors have relationships?*
+
+SELECT a.fullname AS actor, r.fullname AS related_actor, relationship FROM actor_relationships
+    JOIN actors a ON actor_relationships.actors_id = a.id
+    JOIN actors r on actor_relationships.related_id = r.id;   
+
