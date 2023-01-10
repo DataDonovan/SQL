@@ -1,6 +1,6 @@
-/*In this SQL, I'm querying a database with multiple tables in it to quantify statistics about customer and order data.*/
+/*In this project, I'm querying a database to quantify statistics about customer and order data related to specific months of purchase*/
 
-/*How many orders were placed in January*/
+/*How many orders were placed in January?*/
 
 SELECT count (orderID)
 FROM BIT_DB.JanSales
@@ -9,7 +9,7 @@ AND orderID <> 'Order ID';
 /*this WHERE clause iliminates incorrect and/or incomplete orderIDs from our results*/
 
 
-/*How many of those orders were for an iPhone*/
+/*How many of those orders were for an iPhone?*/
 
 SELECT count (orderID)
 FROM BIT_DB.JanSales
