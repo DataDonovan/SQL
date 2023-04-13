@@ -14,7 +14,7 @@ AND orderID <> 'Order ID';
 SELECT count (orderID)
 FROM BIT_DB.JanSales
 WHERE product = 'iPhone'
-WHERE length(orderID) = 6
+AND length(orderID) = 6
 AND orderID <> 'Order ID';
 
 
