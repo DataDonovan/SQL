@@ -1,6 +1,6 @@
-/* For this project, I downloaded Spotify data from Kaggle.
-Then I created a table to insert Spotify data into.
-Finally, I performed analytics on the data using SQL. */
+/* For this project, I downloaded Spotify data from Kaggle. */
+/* Then I created a table to insert Spotify data into. */
+/* Finally, I performed analytics on the data using SQL. */
 
 
 /*Creating the table: */
@@ -25,6 +25,37 @@ tempo decimal(6,3) NOT NULL,
 duration_ms integer NOT NULL,
 time_signature integer NOT NULL)
 
-/*Then I inserted the Spotify Data .csv into the table. */
+/* Then I inserted the Spotify Data .csv into the table. */
+/* Next, I explored the data using the following SQL. */
+/* What is the average danceability by artist? */
 
-/*Next, I explored the data using the following SQL. */
+SELECT artist_name, AVG(danceability)
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name
+ORDER BY AVG(danceability) desc
+
+
+/* Who are the top 10 artists based on popularity? */
+
+SELECT artist_name, AVG(popularity)
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name
+ORDER BY AVG(popularity) desc
+LIMIT 10
+
+
+/* What artist released the longest song and how long was it? */
+
+SELECT artist_name, MAX(duration_ms)
+FROM BIT_DB.Spotifydata
+
+
+/* What's the average danceability for the 10 most popular songs? */
+
+SELECT AVG(danceability)
+FROM BIT_DB.Spotifydata
+WHERE popularity
+IN (SELECT popularity
+FROM BIT_DB.Spotifydata
+ORDER BY popularity desc
+LIMIT 10)
