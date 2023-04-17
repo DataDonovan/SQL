@@ -29,7 +29,8 @@ time_signature integer NOT NULL)
 /* Next, I explored the data using the following SQL. */
 /* What is the average danceability by artist? */
 
-SELECT artist_name, AVG(danceability)
+SELECT artist_name,
+  AVG(danceability)
 FROM BIT_DB.Spotifydata
 GROUP BY artist_name
 ORDER BY AVG(danceability) desc
@@ -37,7 +38,8 @@ ORDER BY AVG(danceability) desc
 
 /* Who are the top 10 artists based on popularity? */
 
-SELECT artist_name, AVG(popularity)
+SELECT artist_name,
+  AVG(popularity)
 FROM BIT_DB.Spotifydata
 GROUP BY artist_name
 ORDER BY AVG(popularity) desc
@@ -46,7 +48,8 @@ LIMIT 10
 
 /* What artist released the longest song and how long was it? */
 
-SELECT artist_name, MAX(duration_ms)
+SELECT artist_name,
+  MAX(duration_ms)
 FROM BIT_DB.Spotifydata
 
 
@@ -59,3 +62,19 @@ IN (SELECT popularity
 FROM BIT_DB.Spotifydata
 ORDER BY popularity desc
 LIMIT 10)
+
+
+/* USING A CTE: Calculate the average popularity for the artists in the Spotify data table. Then, for every artist with an average popularity of 90 or above, show their name, their average popularity, and label them as a “Top Star”. */
+
+WITH temp_table AS (
+SELECT s.artist_name,
+  AVG(s.popularity) AS avg_pop
+FROM Spotifydata s
+GROUP BY artist_name )
+
+SELECT artist_name,
+  Avg_pop,
+  'Top Star' AS tag
+FROM temp_table
+WHERE avg_pop >=90
+
