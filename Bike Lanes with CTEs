@@ -86,3 +86,19 @@ rating,
 'Safe Lane' as 'label'
 FROM safety_average_cte
 WHERE rating >= 4  
+
+
+/*Next I used a WINDOW FUNCTION to further analyze the safety of the bike lanes */
+
+/* Based on the average safety ratings, which bike lanes need improvements or to be removed? */
+
+SELECT street,
+  Safetyrating,
+  AVG(safetyrating) OVER (PARTITION BY street) as "Average_safety_rating",
+  CASE
+    WHEN AVG(safetyrating) OVER (PARTITION BY street) >=4 THEN "Leave As-Is"
+    WHEN AVG(safetyrating) OVER (PARTITION BY street) <2.5 THEN "Remove"
+    ELSE "Improvements Needed"
+    END AS "Recommendation"
+FROM CityBikeLanes
+ORDER BY AVG(safetyrating) OVER (PARTITION BY street)
